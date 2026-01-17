@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">vendor_specialoffers_form.vendor_specialoffers_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Special Offer</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Vendor\SpecialOffers\Block\Adminhtml\Offer\Edit\SaveButton"/>
+            <button name="delete" class="Vendor\SpecialOffers\Block\Adminhtml\Offer\Edit\DeleteButton"/>
+            <button name="back" class="Vendor\SpecialOffers\Block\Adminhtml\Offer\Edit\BackButton"/>
+        </buttons>
+        <namespace>vendor_specialoffers_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>vendor_specialoffers_form.vendor_specialoffers_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="vendor_specialoffers_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="specialoffers/offer/save"/>
+        </settings>
+        <dataProvider class="Vendor\SpecialOffers\Model\SpecialOffer\DataProvider" name="vendor_specialoffers_form_data_source">
+            <settings>
+                <requestFieldName>offer_id</requestFieldName>
+                <primaryFieldName>offer_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General Information</label>
+        </settings>
+        <field name="offer_id" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="title" sortOrder="10" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Offer Title</label>
+                <dataScope>title</dataScope>
+            </settings>
+        </field>
+        <field name="description" sortOrder="20" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Offer Description</label>
+                <dataScope>description</dataScope>
+            </settings>
+        </field>
+        <field name="image" sortOrder="30" formElement="imageUploader">
+            <settings>
+                <label translate="true">Offer Image</label>
+                <componentType>imageUploader</componentType>
+                <validation>
+                    <rule name="validate-image" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="specialoffers/offer/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>specialoffers</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png webp</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="url" sortOrder="40" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="validate-url" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Offer URL</label>
+                <dataScope>url</dataScope>
+                <notice translate="true">Enter a valid URL (e.g., https://example.com)</notice>
+            </settings>
+        </field>
+        <field name="is_active" sortOrder="50" formElement="select">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>boolean</dataType>
+                <label translate="true">Active Status</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Vendor\SpecialOffers\Model\Source\IsActive"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>
