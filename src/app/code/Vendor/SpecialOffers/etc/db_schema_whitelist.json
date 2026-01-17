@@ -1,0 +1,20 @@
+{
+    "vendor_special_offers": {
+        "column": {
+            "offer_id": true,
+            "title": true,
+            "description": true,
+            "image": true,
+            "url": true,
+            "is_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        },
+        "index": {
+            "VENDOR_SPECIAL_OFFERS_IS_ACTIVE": true
+        }
+    }
+}
