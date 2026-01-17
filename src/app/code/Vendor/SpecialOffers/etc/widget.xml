@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="vendor_special_offers_slider" class="Vendor\SpecialOffers\Block\Widget\SpecialOffersSlider" placeholder_image="Vendor_SpecialOffers::images/widget_placeholder.png">
+        <label translate="true">Special Offers Slider</label>
+        <description translate="true">Displays active special offers in a slider with configurable items per row</description>
+        <parameters>
+            <parameter name="slider_title" xsi:type="text" visible="true" sort_order="10">
+                <label translate="true">Slider Title</label>
+                <description translate="true">Title displayed above the slider</description>
+                <value>Special Offers</value>
+            </parameter>
+            <parameter name="offers_count" xsi:type="text" visible="true" sort_order="20">
+                <label translate="true">Number of Offers to Display</label>
+                <description translate="true">Maximum number of offers to show</description>
+                <value>8</value>
+            </parameter>
+            <parameter name="items_per_row" xsi:type="select" visible="true" sort_order="30">
+                <label translate="true">Items Per Row</label>
+                <description translate="true">Number of offers to display per row</description>
+                <options>
+                    <option name="2" value="2">
+                        <label translate="true">2</label>
+                    </option>
+                    <option name="3" value="3">
+                        <label translate="true">3</label>
+                    </option>
+                    <option name="4" value="4" selected="true">
+                        <label translate="true">4</label>
+                    </option>
+                    <option name="5" value="5">
+                        <label translate="true">5</label>
+                    </option>
+                    <option name="6" value="6">
+                        <label translate="true">6</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,300 @@
+<?php
+/**
+ * Special Offers Slider Widget Template
+ *
+ * @var \Vendor\SpecialOffers\Block\Widget\SpecialOffersSlider $block
+ */
+
+if (!$block->hasOffers()) {
+    return;
+}
+
+$offers = $block->getOffers();
+$itemsPerRow = $block->getItemsPerRow();
+$sliderTitle = $block->getSliderTitle();
+$uniqueId = uniqid('special-offers-');
+?>
+
+<div class="special-offers-slider-wrapper" id="<?= $block->escapeHtmlAttr($uniqueId) ?>">
+    <?php if ($sliderTitle): ?>
+        <h2 class="special-offers-title"><?= $block->escapeHtml($sliderTitle) ?></h2>
+    <?php endif; ?>
+
+    <div class="special-offers-slider" data-items-per-row="<?= (int) $itemsPerRow ?>">
+        <div class="slider-container">
+            <div class="slider-track">
+                <?php foreach ($offers as $offer): ?>
+                    <div class="offer-item">
+                        <div class="offer-card">
+                            <?php $imageUrl = $block->getImageUrl($offer->getImage()); ?>
+                            <div class="offer-image">
+                                <?php if ($offer->getUrl()): ?>
+                                    <a href="<?= $block->escapeUrl($offer->getUrl()) ?>" title="<?= $block->escapeHtmlAttr($offer->getTitle()) ?>">
+                                        <img src="<?= $block->escapeUrl($imageUrl) ?>"
+                                             alt="<?= $block->escapeHtmlAttr($offer->getTitle()) ?>"
+                                             loading="lazy" />
+                                    </a>
+                                <?php else: ?>
+                                    <img src="<?= $block->escapeUrl($imageUrl) ?>"
+                                         alt="<?= $block->escapeHtmlAttr($offer->getTitle()) ?>"
+                                         loading="lazy" />
+                                <?php endif; ?>
+                            </div>
+                            <div class="offer-content">
+                                <h3 class="offer-title">
+                                    <?php if ($offer->getUrl()): ?>
+                                        <a href="<?= $block->escapeUrl($offer->getUrl()) ?>">
+                                            <?= $block->escapeHtml($offer->getTitle()) ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <?= $block->escapeHtml($offer->getTitle()) ?>
+                                    <?php endif; ?>
+                                </h3>
+                                <?php if ($offer->getDescription()): ?>
+                                    <div class="offer-description">
+                                        <?= $block->escapeHtml($offer->getDescription()) ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($offer->getUrl()): ?>
+                                    <a href="<?= $block->escapeUrl($offer->getUrl()) ?>" class="offer-link">
+                                        <?= $block->escapeHtml(__('View Offer')) ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <button class="slider-nav slider-prev" aria-label="<?= $block->escapeHtmlAttr(__('Previous')) ?>">
+            <span>&lt;</span>
+        </button>
+        <button class="slider-nav slider-next" aria-label="<?= $block->escapeHtmlAttr(__('Next')) ?>">
+            <span>&gt;</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    .special-offers-slider-wrapper {
+        max-width: 1280px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .special-offers-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .special-offers-slider {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .slider-container {
+        overflow: hidden;
+    }
+
+    .slider-track {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .offer-item {
+        flex: 0 0 calc(100% / <?= (int) $itemsPerRow ?>);
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .offer-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .offer-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .offer-image {
+        position: relative;
+        padding-top: 66.67%;
+        overflow: hidden;
+        background: #f5f5f5;
+    }
+
+    .offer-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .offer-content {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .offer-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        line-height: 1.3;
+    }
+
+    .offer-title a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .offer-title a:hover {
+        color: #006bb4;
+    }
+
+    .offer-description {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .offer-link {
+        display: inline-block;
+        color: #006bb4;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .offer-link:hover {
+        text-decoration: underline;
+    }
+
+    .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #333;
+        z-index: 10;
+        transition: background 0.2s ease;
+    }
+
+    .slider-nav:hover {
+        background: #f5f5f5;
+    }
+
+    .slider-prev {
+        left: 0;
+    }
+
+    .slider-next {
+        right: 0;
+    }
+
+    @media (max-width: 1024px) {
+        .offer-item {
+            flex: 0 0 33.333%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .offer-item {
+            flex: 0 0 50%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .offer-item {
+            flex: 0 0 100%;
+        }
+
+        .special-offers-title {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<script>
+    (function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            var wrapper = document.getElementById('<?= $block->escapeJs($uniqueId) ?>');
+            if (!wrapper) return;
+
+            var slider = wrapper.querySelector('.special-offers-slider');
+            var track = slider.querySelector('.slider-track');
+            var items = track.querySelectorAll('.offer-item');
+            var prevBtn = slider.querySelector('.slider-prev');
+            var nextBtn = slider.querySelector('.slider-next');
+            var itemsPerRow = parseInt(slider.dataset.itemsPerRow) || 4;
+            var currentIndex = 0;
+            var totalItems = items.length;
+
+            function getVisibleItems() {
+                var width = window.innerWidth;
+                if (width <= 480) return 1;
+                if (width <= 768) return 2;
+                if (width <= 1024) return 3;
+                return itemsPerRow;
+            }
+
+            function updateSlider() {
+                var visibleItems = getVisibleItems();
+                var maxIndex = Math.max(0, totalItems - visibleItems);
+                currentIndex = Math.min(currentIndex, maxIndex);
+                var translateX = -(currentIndex * (100 / visibleItems));
+                track.style.transform = 'translateX(' + translateX + '%)';
+
+                prevBtn.style.display = currentIndex > 0 ? 'flex' : 'none';
+                nextBtn.style.display = currentIndex < maxIndex ? 'flex' : 'none';
+            }
+
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                var visibleItems = getVisibleItems();
+                var maxIndex = Math.max(0, totalItems - visibleItems);
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+
+            window.addEventListener('resize', updateSlider);
+            updateSlider();
+        });
+    })();
+</script>
