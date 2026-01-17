@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/di.xsd">
+    <preference for="Vendor\SpecialOffers\Api\Data\SpecialOfferInterface" type="Vendor\SpecialOffers\Model\SpecialOffer"/>
+
+    <virtualType name="Vendor\SpecialOffers\Model\ResourceModel\SpecialOffer\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vendor_special_offers</argument>
+            <argument name="resourceModel" xsi:type="string">Vendor\SpecialOffers\Model\ResourceModel\SpecialOffer</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="vendor_specialoffers_listing_data_source" xsi:type="string">Vendor\SpecialOffers\Model\ResourceModel\SpecialOffer\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Vendor\SpecialOffers\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">specialoffers/tmp</argument>
+            <argument name="basePath" xsi:type="string">specialoffers</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="webp" xsi:type="string">webp</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Vendor\SpecialOffers\Controller\Adminhtml\Offer\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Vendor\SpecialOffers\ImageUploader</argument>
+        </arguments>
+    </type>
+
+    <type name="Vendor\SpecialOffers\Model\SpecialOffer">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Vendor\SpecialOffers\ImageUploader</argument>
+        </arguments>
+    </type>
+</config>
