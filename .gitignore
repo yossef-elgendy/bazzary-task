@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files (use .example templates)
+env/db.env
+env/magento.env
+env/phpfpm.env
+env/rabbitmq.env
+env/redis.env
+env/opensearch.env
+env/elasticsearch.env
+env/blackfire.env
+env/cloudflare.env
+
+# Magento source (managed separately)
+src/*
+!src/.gitignore
+!src/app/
+src/app/*
+!src/app/code/
+!src/app/design/
+!src/app/etc/
+src/app/etc/*
+!src/app/etc/config.php
+
+# Template directory
+template/
